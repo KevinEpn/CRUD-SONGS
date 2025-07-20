@@ -4,6 +4,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = MongoClient(os.getenv("MOONGO_URI"))
+client = MongoClient(os.getenv("MONGO_URI"))
 db = client["CRUDSongs"]
 collection = db["songs"]
