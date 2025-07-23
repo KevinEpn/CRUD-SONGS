@@ -6,6 +6,8 @@ Una API REST simple construida con FastAPI y MongoDB para gestionar una colecci�
 
 Esta aplicación permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre una base de datos de canciones. Cada canción tiene un nombre, una ruta de archivo y un contador de reproducciones.
 
+Este proyecto implementa un microservicio RESTful para la gestión de canciones, utilizando FastAPI como framework principal, MongoDB Atlas como base de datos en la nube y Docker para contenerización. El microservicio ha sido desplegado usando Render.com desde Docker Hub.
+
 ## Características
 
 - ✅ Listar todas las canciones
@@ -27,58 +29,50 @@ Esta aplicación permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eli
 ## Estructura del Proyecto
 
 ```
-├── main.py          # Punto de entrada de la aplicación FastAPI
-├── models.py        # Modelos de datos con Pydantic
-├── crud.py          # Operaciones CRUD
-├── database.py      # Configuración de la base de datos
-├── requirements.txt # Dependencias del proyecto
-├── .env            # Variables de entorno (no incluir en git)
-└── .gitignore      # Archivos ignorados por git
+├── main.py # Punto de entrada FastAPI
+├── models.py # Esquema de datos con Pydantic
+├── crud.py # Funciones CRUD
+├── database.py # Conexión a MongoDB Atlas
+├── requirements.txt # Dependencias
+├── Dockerfile # Configuración de imagen Docker
+├── .dockerignore # Archivos ignorados en build
+└── README.md # Este archivo
 ```
 
-## Instalación
+## 🐳 Instalación Docker
 
-1. Clona el repositorio:
+### Construcción de la imagen
+
 ```bash
-git clone <url-del-repositorio>
-cd CRUD-Songs
-```
+docker build -t <usuario>/crud-songs .
+``` 
 
-2. Crea un entorno virtual:
+### Ejecución de la imagen
+
 ```bash
-python -m venv .venv
+docker run -p 10000:10000 -e MONGO_URI="mongodb+srv://<usuario>:<clave>@<cluster>.mongodb.net/CRUDSongs?retryWrites=true&w=majority" <usuario>/crud-songs
 ```
 
-3. Activa el entorno virtual:
+## Despliegue en Render
+
+Imagen desplegada desde: Docker Hub
+
+Plataforma: Render.com
+
+URL del servicio (ejemplo):
+
 ```bash
-# En Windows
-.venv\Scripts\activate
-
-# En macOS/Linux
-source .venv/bin/activate
-```
-
-4. Instala las dependencias:
-```bash
-pip install -r requirements.txt
-```
-
-5. Configura las variables de entorno:
-```bash
-# Crea un archivo .env y añade tu URI de MongoDB
-MOONGO_URI=mongodb+srv://usuario:contraseña@cluster.mongodb.net/CRUDSongs?retryWrites=true&w=majority
-```
+https://crud-songs.onrender.com
+Documentación: https://crud-songs.onrender.com/docs
+``` 
 
 ## Uso
 
-1. Inicia el servidor:
-```bash
-uvicorn main:app --reload
-```
+1. Visitar servicio:
 
-2. La API estará disponible en: `http://localhost:8000`
+Utilizar el link generado por render (ejemplo)
 
-3. Documentación interactiva: `http://localhost:8000/docs`
+2. Documentación interactiva: `/docs`
 
 ## Endpoints de la API
 
